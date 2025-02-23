@@ -138,28 +138,30 @@
         .liked i {
             color: #00ff00; /* Green heart */
         }
-
         .upload-container {
-            bottom: 20px;
-            width: 100%;
-            text-align: center;
-            z-index: 10;
-        }
+    position: absolute; /* Position it absolutely within the post */
+    right: 15px; /* Align it to the right, like the vertical icons */
+    bottom: 30%; /* Adjust this value to place it above the like button */
+    z-index: 10; /* Ensure it stays on top of other elements */
+}
 
-        .upload-btn {
-            z-index: 10;
-            background-color: #00ff00;
-            border: none;
-            color: #fff;
-            font-size: 16px;
-            padding: 10px 20px;
-            border-radius: 20px;
-            cursor: pointer;
-        }
+.upload-btn {
+    background-color: #00ff00;
+    border: none;
+    color: #fff;
+    font-size: 16px;
+    padding: 10px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+}
 
-        .upload-btn:hover {
-            background-color: #00cc00;
-        }
+.upload-btn:hover {
+    background-color: #00cc00;
+}
+
+
+
+        
     </style>
 </head>
 <body>
