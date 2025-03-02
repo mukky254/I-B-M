@@ -52,6 +52,7 @@
             flex-direction: column;
             align-items: center;
             gap: 20px;
+            z-index: 10; /* Ensure icons are above other content */
         }
 
         .vertical-icons div {
@@ -63,6 +64,11 @@
             background-color: rgba(0, 0, 0, 0.6);
             padding: 10px;
             border-radius: 50%;
+            transition: background-color 0.3s;
+        }
+
+        .vertical-icons div:hover {
+            background-color: rgba(0, 0, 0, 0.8);
         }
 
         .comment-section {
@@ -141,9 +147,9 @@
         }
 
         .upload-container {
-            position: fixed; /* Fixes the upload button in place */
-            left: 15px; /* Position it on the left side of the screen */
-            bottom: 30%; /* Adjust vertical position */
+            position: fixed;
+            left: 15px;
+            bottom: 30%;
             z-index: 10;
         }
 
@@ -164,37 +170,43 @@
         /* Media Queries for responsiveness */
         @media (max-width: 768px) {
             .post {
-                height: 100vh; /* Keep it full screen height on tablets */
+                height: 100vh;
             }
 
             .vertical-icons {
                 bottom: 10%;
                 right: 10px;
+                gap: 15px;
             }
 
             .comment-section {
-                width: 90%; /* Make comment section take up more space on smaller screens */
+                width: 90%;
                 height: 80vh;
             }
 
             .upload-container {
-                left: 10px; /* Adjust the upload button position for smaller screens */
-                bottom: 20%; /* Adjust vertical position */
+                left: 10px;
+                bottom: 20%;
             }
         }
 
         @media (max-width: 480px) {
             .post {
-                height: 100vh; /* Keep it full screen height on mobile */
+                height: 100vh;
             }
 
             .vertical-icons {
                 right: 5px;
                 bottom: 5%;
+                gap: 12px; /* Adjust icon spacing */
+            }
+
+            .vertical-icons div {
+                padding: 8px; /* Smaller icon padding */
             }
 
             .comment-section {
-                width: 100%; /* Make comment section full width */
+                width: 100%;
                 height: 80vh;
             }
 
@@ -357,7 +369,7 @@ document.getElementById("commentForm").addEventListener("submit", async function
         });
 
         commentInput.value = "";
-        fetchComments(currentPostId); // Fetch comments after posting a new one
+        fetchComments(currentPostId);
     } catch (error) {
         console.error("Error posting comment:", error);
     }
