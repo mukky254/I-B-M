@@ -18,7 +18,7 @@
         }
 
         .content {
-            height: calc(100vh - 80px);
+            height: 100vh;
             flex: 1;
             overflow-y: scroll;
             scroll-snap-type: y mandatory;
@@ -41,7 +41,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            object-fit: 100%;
+            object-fit: contain;
         }
 
         .vertical-icons {
@@ -135,33 +135,83 @@
             top: 20px;
             right: 20px;
         }
+
         .liked i {
             color: #00ff00; /* Green heart */
         }
+
         .upload-container {
-    position: absolute; /* Position it absolutely within the post */
-    right: 15px; /* Align it to the right, like the vertical icons */
-    bottom: 30%; /* Adjust this value to place it above the like button */
-    z-index: 10; /* Ensure it stays on top of other elements */
-}
+            position: fixed; /* Fixes the upload button in place */
+            left: 15px; /* Position it on the left side of the screen */
+            bottom: 30%; /* Adjust vertical position */
+            z-index: 10;
+        }
 
-.upload-btn {
-    background-color: #00ff00;
-    border: none;
-    color: #fff;
-    font-size: 16px;
-    padding: 10px 20px;
-    border-radius: 20px;
-    cursor: pointer;
-}
+        .upload-btn {
+            background-color: #00ff00;
+            border: none;
+            color: #fff;
+            font-size: 16px;
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+        }
 
-.upload-btn:hover {
-    background-color: #00cc00;
-}
+        .upload-btn:hover {
+            background-color: #00cc00;
+        }
 
+        /* Media Queries for responsiveness */
+        @media (max-width: 768px) {
+            .post {
+                height: 100vh; /* Keep it full screen height on tablets */
+            }
 
+            .vertical-icons {
+                bottom: 10%;
+                right: 10px;
+            }
 
-        
+            .comment-section {
+                width: 90%; /* Make comment section take up more space on smaller screens */
+                height: 80vh;
+            }
+
+            .upload-container {
+                left: 10px; /* Adjust the upload button position for smaller screens */
+                bottom: 20%; /* Adjust vertical position */
+            }
+        }
+
+        @media (max-width: 480px) {
+            .post {
+                height: 100vh; /* Keep it full screen height on mobile */
+            }
+
+            .vertical-icons {
+                right: 5px;
+                bottom: 5%;
+            }
+
+            .comment-section {
+                width: 100%; /* Make comment section full width */
+                height: 80vh;
+            }
+
+            .comment-form {
+                flex-direction: column;
+                gap: 5px;
+            }
+
+            .comment-input {
+                width: 100%;
+            }
+
+            .upload-btn {
+                padding: 8px 15px;
+                font-size: 14px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -252,7 +302,6 @@ function updateVideos() {
 }
 
 async function toggleLike(postId, element, userLiked) {
-    // Prevent user from liking more than once
     if (userLiked) {
         alert("You have already liked this post.");
         return;
@@ -262,11 +311,8 @@ async function toggleLike(postId, element, userLiked) {
         const response = await fetch(`${backendUrl}/api/posts/${postId}/like`, { method: "POST" });
         const data = await response.json();
         
-        // Add the 'liked' class to change the like button's appearance
         element.classList.add("liked");
         element.querySelector("span").textContent = data.likes;
-
-        // Update the post to reflect that the user has liked it
         userLiked = true;
     } catch (error) {
         console.error("Error liking post:", error);
